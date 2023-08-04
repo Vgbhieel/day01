@@ -10,6 +10,14 @@ class WeatherAppPage extends StatefulWidget {
 }
 
 class _WeatherAppPageState extends State<WeatherAppPage> {
+  String _searchText = "";
+
+  void _onSearch(String searchText) {
+    setState(() {
+      _searchText = searchText;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -17,26 +25,29 @@ class _WeatherAppPageState extends State<WeatherAppPage> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-          appBar: const WheatherAppBar().build(context),
+          appBar: WheatherAppBar(
+            onSearch: _onSearch,
+            onGeolocationClicked: () => _onSearch("Geolocation"),
+          ).build(context),
           body: TabBarView(
             children: [
               Center(
                 child: Text(
-                  "Currently",
+                  "Currently\n$_searchText",
                   textAlign: TextAlign.center,
                   style: theme.textTheme.displayLarge,
                 ),
               ),
               Center(
                 child: Text(
-                  "Today",
+                  "Today\n$_searchText",
                   textAlign: TextAlign.center,
                   style: theme.textTheme.displayLarge,
                 ),
               ),
               Center(
                 child: Text(
-                  "Weekly",
+                  "Weekly\n$_searchText",
                   textAlign: TextAlign.center,
                   style: theme.textTheme.displayLarge,
                 ),

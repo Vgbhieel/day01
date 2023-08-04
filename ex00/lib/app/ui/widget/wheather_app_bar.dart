@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class WheatherAppBar extends StatelessWidget {
+  final Function(String) _onSearch;
+  final Function() _onGeolocationClicked;
+
   const WheatherAppBar({
     super.key,
-  });
+    required onSearch,
+    required onGeolocationClicked,
+  })  : _onSearch = onSearch,
+        _onGeolocationClicked = onGeolocationClicked;
 
   @override
   AppBar build(BuildContext context) {
@@ -21,6 +27,7 @@ class WheatherAppBar extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: TextField(
+                  onSubmitted: _onSearch,
                   decoration: InputDecoration(
                     enabledBorder: InputBorder.none,
                     icon: Icon(
@@ -47,7 +54,7 @@ class WheatherAppBar extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.navigation,
                         color: theme.colorScheme.primary),
-                    onPressed: () {},
+                    onPressed: _onGeolocationClicked,
                   ),
                 ),
               ),
